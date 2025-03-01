@@ -4,7 +4,7 @@ import io
 from enum import StrEnum
 from typing import Literal, TypedDict
 import pyautogui
-from anthropic.types.beta import BetaToolComputerUse20241022Param
+from anthropic.types.beta import BetaToolComputerUse20250124Param
 
 from .base import BaseAnthropicTool, ToolError, ToolResult
 
@@ -49,7 +49,7 @@ class ComputerTool(BaseAnthropicTool):
     """
 
     name: Literal["computer"] = "computer"
-    api_type: Literal["computer_20241022"] = "computer_20241022"
+    api_type: Literal["computer_20250124"] = "computer_20250124"
     width: int
     height: int
     display_num: int | None
@@ -65,7 +65,7 @@ class ComputerTool(BaseAnthropicTool):
             "display_number": self.display_num,
         }
 
-    def to_params(self) -> BetaToolComputerUse20241022Param:
+    def to_params(self) -> BetaToolComputerUse20250124Param:
         return {"name": self.name, "type": self.api_type, **self.options}
 
     def __init__(self):

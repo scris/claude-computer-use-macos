@@ -24,7 +24,7 @@ from anthropic.types.beta import (
 
 from .tools import BashTool, ComputerTool, EditTool, ToolCollection, ToolResult
 
-BETA_FLAG = "computer-use-2024-10-22"
+BETA_FLAG = "computer-use-2025-01-24"
 
 
 class APIProvider(StrEnum):
@@ -34,9 +34,9 @@ class APIProvider(StrEnum):
 
 
 PROVIDER_TO_DEFAULT_MODEL_NAME: dict[APIProvider, str] = {
-    APIProvider.ANTHROPIC: "claude-3-5-sonnet-20241022",
-    APIProvider.BEDROCK: "anthropic.claude-3-5-sonnet-20241022-v2:0",
-    APIProvider.VERTEX: "claude-3-5-sonnet-v2@20241022",
+    APIProvider.ANTHROPIC: "claude-3-7-sonnet-20250219",
+    APIProvider.BEDROCK: "anthropic.claude-3-7-sonnet-20250219-v1:0",
+    APIProvider.VERTEX: "claude-3-7-sonnet@20250219",
 }
 
 
@@ -99,7 +99,7 @@ async def sampling_loop(
 
         # Call the API
         # we use raw_response to provide debug information to streamlit. Your
-        # implementation may be able call the SDK directly with:
+        # implementation may be able to call the SDK directly with:
         # `response = client.messages.create(...)` instead.
         raw_response = client.beta.messages.with_raw_response.create(
             max_tokens=max_tokens,
@@ -107,7 +107,7 @@ async def sampling_loop(
             model=model,
             system=system,
             tools=tool_collection.to_params(),
-            betas=["computer-use-2024-10-22"],
+            betas=[BETA_FLAG],
         )
 
         api_response_callback(cast(APIResponse[BetaMessage], raw_response))
